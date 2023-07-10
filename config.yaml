@@ -1,0 +1,22 @@
+issuer: http://127.0.0.1:5556/
+storage:
+  type: sqlite3
+  config:
+    file: dex.db
+web:
+  http: 0.0.0.0:5556
+
+connectors:
+- type: oidc
+  id: circleci
+  name: CircleCI
+  config:
+    issuer: https://agent.buildkite.com
+    scopes:
+      - openid
+      - groups
+    userNameKey: sub
+    insecureEnableGroups: true
+    # getUserInfo: true
+    claimMapping:
+      groups: pipeline_slug
